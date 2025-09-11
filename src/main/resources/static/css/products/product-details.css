@@ -4,7 +4,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: red;
-    overflow-x: hidden;
 }
 
 /* Header */
@@ -24,13 +23,6 @@ body {
     margin: 0;
     text-align: center;
     flex: 1;
-}
-
-.header-left {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-left: 5px;
 }
 
 .header-right {
@@ -54,9 +46,9 @@ body {
 }
 
 /* Hauptbereich */
-.main {
+.main-content {
     flex: 1;
-    min-height: calc(100vh - 120px);
+    height: 100vh;
     margin: 0;
     padding: 30px;
     display: flex;
@@ -67,12 +59,12 @@ body {
 }
 
 .side-image {
-    flex: 0 0 350px; /* feste Breite für die Bilder */
+    flex: 0 0 350px;
 }
 .side-image.right {
     position: fixed;
-    right: 30px;       /* Abstand vom rechten Bildschirmrand */
-    top: 640px;        /* Abstand vom oberen Rand */
+    right: 30px;
+    top: 640px;
     width: 350px;
 }
 .side-image.left {
@@ -90,79 +82,85 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.products-grid {
-    flex: 1;
-    max-width: calc(100% - 900px);
+products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-    margin-right: 300px;
-    margin-left: 300px;
-    padding-bottom: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    padding-bottom: 80px;
 }
 
-/* Karten */
 .card {
-    background: white;
-    padding: 10px;
-    border: 1px solid #615b5b;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    text-align: center;
+    background: #fff;
+    border: 1px solid #e0d9c7;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px;
+    min-width: 400px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
 
-.card-img {
-    width: 80%;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 5px;
+.product-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .card-title {
-    margin: 0 0 8px;
-    color: #a50202;
+    margin: 0 0 12px;
+    color: #2e7d32;
     font-size: 1.1rem;
 }
 
-.card-title a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.card-title a:hover {
-    text-decoration: underline;
-}
 .card-desc {
     margin: 0 0 12px;
-    flex: 1; /* füllt Platz zwischen Name und Footer */
     color: #444;
     font-size: 0.95rem;
-}
-
-.card-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    flex: 1;
 }
 
 .card-price {
     font-weight: bold;
-    color: #550101;
-    margin: 0;
+    color: darkred;
+    margin: 0 0 12px;
+}
+
+.card-actions {
+    margin-top: auto;
+}
+.card-footer {
+    display: flex;
+    flex-direction: column; /* vertikal anordnen */
+    align-items: center;    /* horizontal zentrieren */
+    gap: 8px;               /* Abstand zwischen Preis und Button */
 }
 
 .btn {
-    background-color: forestgreen;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #2e7d32;
+    background: #2e7d32;
+    color: #fff;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .btn:hover {
-    background-color: #256428;
+    filter: brightness(0.95);
+}
+
+/* Formular-Button im gleichen Stil */
+.add-to-cart-form { margin: 0; }
+.add-to-cart-form .btn {
+    background: #fff;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
 }
 
 /* Footer */
