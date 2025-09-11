@@ -1,0 +1,141 @@
+/* Allgemeines Layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: red;
+}
+
+/* Header */
+.header {
+    background-color: #2e7d32; /* Grün */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.header-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.login-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    width: 60px;
+    font-size: 20px;
+}
+
+.cart-icon {
+    width: 60px;
+    height: 40px;
+}
+
+/* Hauptbereich */
+.main {
+    flex: 1;
+    height: 100vh;
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    background: linear-gradient(to right, #f6eccb, #ead770);
+    gap: 40px;
+}
+
+.side-image {
+    flex: 0 0 350px; /* feste Breite für die Bilder */
+}
+.side-image.right {
+    position: fixed;
+    right: 30px;       /* Abstand vom rechten Bildschirmrand */
+    top: 640px;        /* Abstand vom oberen Rand */
+    width: 350px;
+}
+.side-image.left {
+    position: fixed;
+    left: 30px;
+    top: 100px;
+    width: 350px;
+}
+
+.side-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #615b5b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.products-grid {
+    flex: 1;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-right: 400px;
+    margin-left: 400px;
+    padding-bottom: 100px;
+}
+
+/* Karten */
+.card {
+    background: white;
+    padding: 10px;
+    border: 1px solid #615b5b;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.card-img {
+    width: 80%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+.btn {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #256428;
+}
+
+/* Footer */
+.footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #2e7d32;
+    color: white;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
