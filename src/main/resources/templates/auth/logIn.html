@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MedicHub Pharmacy</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <h1 class="logo">MedicHub Pharmacy</h1>
+    <div class="header-right">
+        <a href="/login" class="login-link">Login</a>
+        <a href="/cart">
+            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
+        </a>
+    </div>
+</header>
+
+<!-- Body -->
+<main class="main">
+    <div class="side-image left">
+        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+    </div>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <!-- Login-Form -->
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="username" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Registration link -->
+        <p class="signup-link">
+            Not registered yet?
+            <a th:href="@{/signup}">Sign up</a>
+        </p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="side-image right">
+        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div></div>
+    <div>
+        <p><a href="/terms">Terms & Conditions</a></p>
+    </div>
+    <div>
+        <p><a href="/imprint">Imprint</a></p>
+    </div>
+    <div>
+        <p><a href="/privacy">Privacy Policy</a></p>
+    </div>
+    <div>
+        <p><a href="/contact">Contact</a></p>
+    </div>
+    <div>
+        <p>© 2025 MedicHub</p>
+    </div>
+    <div></div>
+</footer>
+
+</body>
+</html>

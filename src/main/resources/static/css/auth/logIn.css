@@ -1,0 +1,139 @@
+/* Body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: red;
+    overflow-x: hidden;
+
+    /* Flexbox für vertikales Layout */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background-color: #2e7d32; /* Grün */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo & Header Elemente */
+.logo {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.header-left {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.header-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.login-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    width: 60px;
+    font-size: 20px;
+}
+
+.cart-icon {
+    width: 60px;
+    height: 40px;
+}
+
+/* Hauptbereich - Login Container */
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #f6eccb, #ead770);
+    padding: 30px;
+}
+
+/* Login Container */
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Footer */
+.footer {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Side Images (optional) */
+.side-image {
+    flex: 0 0 350px;
+}
+
+.side-image.right {
+    position: fixed;
+    right: 30px;
+    top: 630px;
+    width: 350px;
+}
+
+.side-image.left {
+    position: fixed;
+    left: 30px;
+    top: 110px;
+    width: 350px;
+}
+
+.side-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #615b5b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
