@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MedicHub Pharmacy</title>
+  <link rel="stylesheet" type="text/css" href="/css/products/product-details.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <a href="/" class="login-link">Back</a>
+    </div>
+  <h1 class="logo">MedicHub Pharmacy</h1>
+  <div class="header-right">
+      <a href="/auth/logIn" class="login-link">Login</a>
+    <a href="/cart">
+      <img src="/images/cart.jpg" alt="Cart" class="cart-icon">
+    </a>
+  </div>
+</header>
+
+<!-- Body -->
+<main class="main-content">
+
+    <!-- Image Left -->
+  <div class="side-image left">
+      <img src="/images/arzneimittel.jpg" alt="Links Bild">
+  </div>
+
+  <div class="product-container" >
+      <img src="/images/tablets.png" alt="Product" class="card-img">
+      <h2 th:text="${product.name}">Produktname</h2>
+      <p><strong>Kategorie:</strong> <span th:text="${product.category}"></span></p>
+      <p><strong>Beschreibung:</strong> <span th:text="${product.description}"></span></p>
+      <p><strong>Preis:</strong> $<span th:text="${product.price}"></span></p>
+      <p><strong>Verfügbar:</strong> <span th:text="${product.stock}"></span> Stück</p>
+      <form th:action="@{/cart/add/{id}(id=${product.productId})}" method="post">
+          <button type="submit" class="btn">Add to Cart</button>
+      </form>
+  </div>
+
+    <!-- Image Right -->
+  <div class="side-image right">
+      <img src="../../images/buildKraut.jpg" alt="Rechts Bild">
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div></div>
+      <div>
+          <p><a href="/terms">Terms & Conditions</a></p>
+      </div>
+      <div>
+          <p><a href="/imprint">Imprint</a></p>
+      </div>
+      <div>
+          <p><a href="/privacy">Privacy Policy</a></p>
+      </div>
+      <div>
+          <p><a href="/contact">Contact</a></p>
+      </div>
+      <div>
+          <p>© 2025 MedicHub</p>
+      </div>
+    <div></div>
+</footer>
+
+</body>
+</html>

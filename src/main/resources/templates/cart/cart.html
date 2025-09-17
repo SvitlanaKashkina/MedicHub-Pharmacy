@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MedicHub Pharmacy</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+    <title>MedicHub Pharmacy - Cart</title>
+    <link rel="stylesheet" href="/css/cart/cart.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
+    <div class="header-left">
+        <a href="/" class="login-link">Back</a>
+    </div>
     <h1 class="logo">MedicHub Pharmacy</h1>
     <div class="header-right">
-        <a href="/login" class="login-link">Login</a>
+        <a href="/auth/logIn" class="login-link">Login</a>
         <a href="/cart">
-            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
+            <img src="/images/cart.jpg" alt="Cart" class="cart-icon">
         </a>
     </div>
 </header>
@@ -21,43 +24,67 @@
 <!-- Body -->
 <main class="main">
     <div class="side-image left">
-        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+        <img th:src="@{/images/buildKraut.jpg}" alt="Links Bild">
     </div>
 
+    <section class="product-container">
+        <h2>Your Cart : </h2>
 
+        <table>
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Line total</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
 
+            <tr th:each="item : ${cartItems}">
 
+                <td th:text="${item.product.name}">Product name</td>
+                <td th:text="${item.product.price} + ' €'">0.00 €</td>
+                <td>
+                    <form th:action="@{/cart/update/{id}(id=${item.cartItemId})}" method="post" style="display:flex; align-items:center; justify-content:center;">
+                        <button type="submit" name="action" value="decrease">-</button>
+                        <span th:text="${item.quantity}" style="margin: 0 10px;"></span>
+                        <button type="submit" name="action" value="increase">+</button>
+                    </form>
+                </td>
+                <td th:text="${#numbers.formatDecimal(item.quantity * item.product.price, 1, 'COMMA', 2, 'POINT')} + ' €'">0,00 €</td>
+                <td>
+                    <form th:action="@{/cart/delete/{id}(id=${item.cartItemId})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
+        <p>Total: <span th:text="${totalFormatted}">0,00</span> €</p>
 
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
 
-
-
-
+        <a th:href="@{/checkout}" class="btn">Proceed to Checkout</a>
+    </section>
 
     <div class="side-image right">
-        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+        <img th:src="@{/images/healyLife.png}" alt="Rechts Bild">
     </div>
-
 </main>
 
 <!-- Footer -->
 <footer class="footer">
     <div></div>
-    <div>
-        <p><a href="/terms">Terms & Conditions</a></p>
-    </div>
-    <div>
-        <p><a href="/imprint">Imprint</a></p>
-    </div>
-    <div>
-        <p><a href="/privacy">Privacy Policy</a></p>
-    </div>
-    <div>
-        <p><a href="/contact">Contact</a></p>
-    </div>
-    <div>
-        <p>© 2025 MedicHub</p>
-    </div>
+    <div><p><a th:href="@{/terms}">Terms & Conditions</a></p></div>
+    <div><p><a th:href="@{/imprint}">Imprint</a></p></div>
+    <div><p><a th:href="@{/privacy}">Privacy Policy</a></p></div>
+    <div><p><a th:href="@{/contact}">Contact</a></p></div>
+    <div><p>© 2025 MedicHub</p></div>
     <div></div>
 </footer>
 

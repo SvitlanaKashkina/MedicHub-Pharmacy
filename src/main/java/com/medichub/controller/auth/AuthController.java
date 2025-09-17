@@ -1,4 +1,4 @@
-package com.medichub.controllers.auth;
+package com.medichub.controller.auth;
 
 import com.medichub.model.User;
 import org.springframework.stereotype.Controller;

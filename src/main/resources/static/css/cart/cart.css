@@ -54,24 +54,24 @@ body {
 
 /* Hauptbereich */
 .main {
-    flex: 1;
-    min-height: calc(100vh - 120px);
     margin: 0;
     padding: 30px;
     display: flex;
     justify-content: center;
-    overflow-y: auto;
-    background: linear-gradient(to right, #f6eccb, #ead770);
+    align-items: flex-start;
     gap: 40px;
+    background: linear-gradient(to right, #f6eccb, #ead770);
+    min-height: calc(100vh - 188px);
+    overflow: visible;
 }
 
 .side-image {
-    flex: 0 0 350px; /* feste Breite für die Bilder */
+    flex: 0 0 350px;
 }
 .side-image.right {
     position: fixed;
-    right: 30px;       /* Abstand vom rechten Bildschirmrand */
-    top: 660px;        /* Abstand vom oberen Rand */
+    right: 30px;
+    top: 650px;
     width: 350px;
 }
 .side-image.left {
@@ -88,15 +88,106 @@ body {
     border: 1px solid #615b5b;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
+/* Container */
+.product-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem 0;
+    height: auto;
+}
 
+.product-container h2 {
+    margin-bottom: 30px;
+    color: #2e7d32;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
 
+.product-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
+.product-container th,
+.product-container td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
 
+.product-container th {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
 
+.product-container td {
+    font-size: 1.2rem;
+    color: #333;
+}
 
+.product-container tbody tr:hover {
+    background-color: #f6f6f6;
+}
 
+.product-container p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #a50202;
+}
 
+/* Button */
+.product-container .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #2e7d32;
+    background: #2e7d32;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 
+.product-container .btn:hover {
+    background: #1b4d1b;
+    border-color: #1b4d1b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .product-container {
+        padding: 1rem;
+        max-width: 95%;
+    }
+
+    .product-container th,
+    .product-container td {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+
+    .product-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .product-container .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
 
 /* Footer */
 .footer {
