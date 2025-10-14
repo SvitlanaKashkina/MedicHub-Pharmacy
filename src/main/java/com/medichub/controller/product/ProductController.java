@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;  // statt Repository
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     // Shows the details of a product on the product-details page
-    @GetMapping("/{id}")
+    @GetMapping("/product-details/{id}")
     public String getProductDetails(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);

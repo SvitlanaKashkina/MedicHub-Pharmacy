@@ -29,15 +29,15 @@
     <div class="products-grid">
         <div class="card" th:each="product : ${products}">
             <div class="product-card">
-                <a th:href="@{/products/{id}(id=${product.productId})}">
+                <a th:href="@{/products/product-details/{id}(id=${product.productId})}">
                     <img src="/images/tablets.png" alt="Product" class="card-img">
                 </a>
                 <h3 class="card-title">
-                    <a th:href="@{/products/{id}(id=${product.productId})}"
+                    <a th:href="@{/products/product-details/{id}(id=${product.productId})}"
                        th:text="${product.name}">Product Name</a>
                 </h3>
                 <h5 class="card-desc">
-                    <a th:href="@{/products/{id}(id=${product.productId})}"
+                    <a th:href="@{/products/product-details/{id}(id=${product.productId})}"
                        >Beschreibung</a>
                 </h5>
                 <div class="card-footer">
