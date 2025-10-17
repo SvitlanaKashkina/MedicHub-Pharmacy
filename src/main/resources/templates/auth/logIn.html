@@ -28,10 +28,13 @@
     </div>
 
     <div class="login-container">
-        <h2>Already have an account? Login</h2>
+        <h2> Login</h2>
 
         <!-- Login-Form -->
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/auth/login}" method="post">
+            <div th:if="${param.error}" style="color:red;">Invalid email or password!</div>
+            <div th:if="${param.logout}" style="color:green;">You have been logged out.</div>
+
             <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input type="email" id="email" name="username" placeholder="Enter your email" required>
@@ -48,7 +51,7 @@
         <!-- Registration link -->
         <p class="signup-link">
             Don’t have an account?
-            <a th:href="@{/signup}">Create one here: SignUp</a>
+            <a th:href="@{/auth/signup}"> SignUp</a>
         </p>
     </div>
 

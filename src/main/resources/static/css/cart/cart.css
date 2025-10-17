@@ -40,8 +40,13 @@ body {
 }
 
 .login-link {
-    color: white;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
     text-decoration: none;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
     width: 60px;
     font-size: 20px;

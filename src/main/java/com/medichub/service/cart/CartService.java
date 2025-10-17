@@ -1,5 +1,6 @@
 package com.medichub.service.cart;
 
+import com.medichub.exception.ResourceNotFoundException;
 import com.medichub.model.CartItem;
 import com.medichub.model.Product;
 import com.medichub.repository.CartItemRepository;
@@ -29,6 +30,7 @@ public class CartService {
     public List<CartItem> getCartItems() {
         return cartItemRepository.findAll(Sort.by("cartItemId"));
     }
+
     public String getFormattedTotal(List<CartItem> cartItems) {
         double total = cartItems.stream()
                 .mapToDouble(ci -> ci.getProduct().getPrice() * ci.getQuantity())
@@ -40,7 +42,7 @@ public class CartService {
 
     // add product to the Cart by id
     public void addProductToCart(Long productId) {
-        // 1. Produkt laden
+
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + productId));
 
@@ -72,6 +74,11 @@ public class CartService {
 
     //Delete a product from the cart
     public void deleteCartItem(Long cartItemId) {
+
+        if (!cartItemRepository.existsById(cartItemId)) {
+            throw new ResourceNotFoundException("Cart item with ID " + cartItemId + " not found");
+        }
+
         cartItemRepository.deleteById(cartItemId);
     }
 }
