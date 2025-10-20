@@ -14,7 +14,9 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
+    @Column(nullable = false)
     private Integer quantity;
+    @Column(nullable = false)
     private Double price;
 
     @ManyToOne

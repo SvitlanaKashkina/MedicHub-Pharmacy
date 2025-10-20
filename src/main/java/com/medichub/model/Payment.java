@@ -15,8 +15,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
+    @Column(nullable = false)
     private Double amount;
+    @Column(nullable = false)
     private String method; //  CREDIT_CARD, PAYPAL
+    @Column(nullable = false)
     private String status; // PENDING, SUCCESS, FAILED
     private LocalDateTime createdAt;
 

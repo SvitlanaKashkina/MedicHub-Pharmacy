@@ -7,34 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-    @ExceptionHandler(Exception.class)
-    public String handleAllException(Exception ex, Model model) {
-
-        ErrorResponseDTO error = new ErrorResponseDTO(
-                LocalDateTime.now(),
-                500,
-                "Internal Server Error",
-                ex.getMessage()
-        );
-
-        log.error("Email already exists: status={}, error={}, message={}, timestamp={}",
-                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp(), ex);
-
-        model.addAttribute("error", error);
-        return "index";
-    }
-
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public String handleEmailExists(EmailAlreadyExistsException ex, Model model) {
@@ -46,7 +31,7 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
 
-        log.error("Email already exists: status={}, error={}, message={}, timestamp={}",
+        log.error("EmailAlreadyExistsException: status={}, error={}, message={}, timestamp={}",
                 error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp(), ex);
 
         model.addAttribute("error", error);
@@ -63,17 +48,35 @@ public class GlobalExceptionHandler {
                 "Not Found",
                 ex.getMessage()
         );
-
-        log.error("Email already exists: status={}, error={}, message={}, timestamp={}",
-                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp(), ex);
+        log.error("Resource not found: status={}, error={}, message={}, timestamp={}",
+                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp());
 
         model.addAttribute("error", error);
         return "cart/cart";
     }
 
 
-    @ExceptionHandler(Exception.class)
-    public String handleIllegalArgument(Exception ex, Model model) {
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public String handleUsernameNotFound(UsernameNotFoundException ex, Model model) {
+
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                LocalDateTime.now(),
+                400,
+                "Bad Request",
+                ex.getMessage()
+        );
+
+        log.error("UsernameNotFoundException: status={}, error={}, message={}, timestamp={}",
+                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp());
+
+        model.addAttribute("error", error);
+
+        return "signup";
+    }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleIllegalArgument(IllegalArgumentException ex, Model model) {
 
         ErrorResponseDTO error = new ErrorResponseDTO(
                 LocalDateTime.now(),
@@ -91,22 +94,35 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+
+        log.error("Validation failed: {} invalid fields. Details: {}", errors.size(), errors);
+
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+
     @ExceptionHandler(Exception.class)
-    public String handleUsernameNotFound(UsernameNotFoundException ex, Model model) {
+    public String handleAllException(Exception ex, Model model) {
 
         ErrorResponseDTO error = new ErrorResponseDTO(
                 LocalDateTime.now(),
-                400,
-                "Bad Request",
+                500,
+                "Internal Server Error",
                 ex.getMessage()
         );
 
-        log.error("UsernameNotFoundException: status={}, error={}, message={}, timestamp={}",
-                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp());
+        log.error("AllException: status={}, error={}, message={}, timestamp={}",
+                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp(), ex);
 
         model.addAttribute("error", error);
-
-        return "signup";
+        return "index";
     }
 
 }

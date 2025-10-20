@@ -24,7 +24,31 @@
         <img src="/static/images/buildKraut.jpg" alt="Links Bild">
     </div>
 
+    <div class="container">
+        <h2>Hi, </h2>
+        <div class="">
+        <p><span class="icon">👤</span><strong>Vorname:</strong> <span th:text="${user.firstname}">Max</span></p>
+        <p><span class="icon">👤</span><strong>Nachname:</strong> <span th:text="${user.lastname}">Mustermann</span></p>
+        <p><span class="icon">📧</span><strong>Email:</strong> <span th:text="${user.email}">max@example.com</span></p>
+        <p><span class="icon">💼</span><strong>Position:</strong> <span th:text="${user.position}">Entwickler</span></p>
+        <p><span class="icon">📅</span><strong>Registriert am:</strong> <span th:text="${user.createdAt}">2025-10-20</span></p>
+        </div>
+        <div class="update">
+            <p>Change your data</p>
+            <button type="button">Email</button>
+            <button type="button">Password</button>
+        </div>
+        <!-- Logout -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Abmelden</button>
+        </form>
 
+        <div class="update">
+            <p>Delete your Account</p>
+            <button type="button">Email</button>
+            <button type="button">Password</button>
+        </div>
+    </div>
 
 
 

@@ -27,7 +27,7 @@ public class SignUpRequestDTO {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters") // optional zusätzlich
+    @Size(min = 8, message = "Password must be at least 8 characters")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$",
             message = "Password must contain uppercase, lowercase, and number")
     private String password;

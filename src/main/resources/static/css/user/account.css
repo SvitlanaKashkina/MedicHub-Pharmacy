@@ -6,9 +6,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Header */
+/* Head */
 .header {
-    background-color: #2e7d32; /* Grün */
+    background-color: #2e7d32;
     color: white;
     padding: 15px 30px;
     display: flex;
@@ -52,7 +52,7 @@ body {
     height: 40px;
 }
 
-/* Hauptbereich */
+/* Main area */
 .main {
     flex: 1;
     min-height: calc(100vh - 120px);
@@ -66,12 +66,12 @@ body {
 }
 
 .side-image {
-    flex: 0 0 350px; /* feste Breite für die Bilder */
+    flex: 0 0 350px;
 }
 .side-image.right {
     position: fixed;
-    right: 30px;       /* Abstand vom rechten Bildschirmrand */
-    top: 660px;        /* Abstand vom oberen Rand */
+    right: 30px;
+    top: 660px;
     width: 350px;
 }
 .side-image.left {
@@ -87,6 +87,63 @@ body {
     border-radius: 8px;
     border: 1px solid #615b5b;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.container p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    font-size: 16px;
+}
+
+.container p:last-child {
+    border-bottom: none;
+}
+
+.container p .icon {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.container p strong {
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.container p span:not(.icon) {
+    color: #333;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 20px;
+        max-width: 90%;
+    }
+    .container p {
+        font-size: 14px;
+    }
 }
 
 

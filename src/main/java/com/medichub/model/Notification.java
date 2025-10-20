@@ -16,7 +16,7 @@ public class Notification {
     private Long notificationId;
 
     private String type; // ORDER_CONFIRMATION, SHIPPING_INFO etc.
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String message;
     private LocalDateTime sentAt;
 

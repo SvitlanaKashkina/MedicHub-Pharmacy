@@ -17,6 +17,7 @@ public class Order {
     private Long orderId;
 
     private String status; // OPEN, PAID, SHIPPED, CANCELLED
+    @Column(nullable = false)
     private Double totalPrice;
     private LocalDateTime createdAt;
 

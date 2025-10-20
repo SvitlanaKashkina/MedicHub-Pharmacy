@@ -17,39 +17,21 @@ public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    @Autowired
-    private UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    // Registration of a new user
-    @Transactional
-    public User registerUser(SignUpRequestDTO request) {
-
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Email address is already registered!");
-        }
-
-        User user = new User();
-        user.setFirstname(request.getFirstname());
-        user.setLastname(request.getLastname());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole("USER");
-        user.setCreatedAt(LocalDateTime.now());
-
-        User saved = userRepository.save(user);
-
-        log.info("User gespeichert mit ID: " + saved.getUserId());
-
-        return saved;
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+
 }
 
 

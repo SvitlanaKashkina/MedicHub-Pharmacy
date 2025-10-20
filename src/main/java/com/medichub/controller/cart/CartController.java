@@ -65,6 +65,8 @@ public class CartController {
         log.info("Called delete cart item for cart item with ID: " + id);
 
         cartService.deleteCartItem(id);
+
+        log.info("art item with ID {} successfully deleted", id);
         return "redirect:/cart";
     }
 }
