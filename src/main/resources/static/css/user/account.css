@@ -1,8 +1,9 @@
+/* Body */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-    color: red;
+    color: #056c01;
     overflow-x: hidden;
 }
 
@@ -19,6 +20,7 @@ body {
     z-index: 1000;
 }
 
+/* Logo & Head Elements */
 .logo {
     margin: 0;
     text-align: center;
@@ -40,8 +42,13 @@ body {
 }
 
 .login-link {
-    color: white;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
     text-decoration: none;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
     width: 60px;
     font-size: 20px;
@@ -52,28 +59,230 @@ body {
     height: 40px;
 }
 
-/* Main area */
+/* Container */
 .main {
     flex: 1;
-    min-height: calc(100vh - 120px);
-    margin: 0;
-    padding: 30px;
     display: flex;
     justify-content: center;
-    overflow-y: auto;
+    align-items: center;
     background: linear-gradient(to right, #f6eccb, #ead770);
-    gap: 40px;
+    padding: 20px;
+    min-height: 80vh;
 }
 
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+.container h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #056c01;
+    text-align: center;
+}
+
+/* Icon + Text */
+.icon {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* User-Data */
+.container p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #07a502;
+}
+
+/* Labels */
+.container p strong {
+    margin-right: 5px;
+    color: #222;
+}
+
+/* Update- and Delete*/
+.update {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+}
+
+/* Update */
+.update p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.update span {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #056c01;
+}
+
+/* Buttons */
+button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Logout-Button */
+form button {
+    background-color: #044201; /* rot */
+}
+
+form button:hover {
+    background-color: #033301;
+}
+
+.update-data {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f0f4f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.update-data p {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #056c01;
+}
+
+.update-data .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.update-data label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.update-data input[type="email"],
+.update-data input[type="password"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.update-data input[type="email"]:focus,
+.update-data input[type="password"]:focus {
+    border-color: #056c01;
+}
+
+.update-data .form-group div {
+    margin-top: 10px;
+}
+
+.update-data button {
+    padding: 8px 20px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.update-data button:hover {
+    background-color: #45a049;
+}
+
+form {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form[action*="logout"] button {
+    background-color: #3678f4;
+}
+
+form[action*="logout"] button:hover {
+    background-color: #0b1cda;
+    transform: scale(1.05);
+}
+
+form[action*="delete"] button {
+    background-color: #a5029d;
+}
+
+form[action*="delete"] button:hover {
+    background-color: #a5029d;
+    transform: scale(1.05);
+}
+
+form + form {
+    margin-top: 10px;
+}
+
+/* Foot */
+.footer {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Side Images (optional) */
 .side-image {
     flex: 0 0 350px;
 }
+
 .side-image.right {
     position: fixed;
     right: 30px;
-    top: 660px;
+    top: 630px;
     width: 350px;
 }
+
 .side-image.left {
     position: fixed;
     left: 30px;
@@ -89,62 +298,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.container {
-    max-width: 450px;
-    margin: 30px auto;
-    padding: 25px 30px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.container p {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-    margin: 0;
-    font-size: 16px;
-}
-
-.container p:last-child {
-    border-bottom: none;
-}
-
-.container p .icon {
-    display: inline-block;
-    width: 25px;
-    text-align: center;
-    margin-right: 12px;
-    font-size: 18px;
-}
-
-.container p strong {
-    font-weight: 600;
-    margin-right: 8px;
-}
-
-.container p span:not(.icon) {
-    color: #333;
-}
-
-@media (max-width: 500px) {
-    .container {
-        padding: 20px;
-        max-width: 90%;
-    }
-    .container p {
-        font-size: 14px;
-    }
-}
 
 
 
@@ -155,19 +308,10 @@ body {
 
 
 
-/* Footer */
-.footer {
-    bottom: 0;
-    width: 100%;
-    background-color: #2e7d32;
-    color: white;
-    padding: 2px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.footer a {
-    color: white;
-    text-decoration: none;
-}
+
+
+
+
+
+

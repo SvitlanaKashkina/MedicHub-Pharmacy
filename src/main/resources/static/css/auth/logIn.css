@@ -64,7 +64,9 @@ body {
     height: 40px;
 }
 
-/* Hauptbereich - Login Container */
+.success-message { color: green; margin-bottom: 15px; }
+.error-message { color: red; margin-bottom: 15px; }
+
 .main {
     flex: 1;
     display: flex;

@@ -94,6 +94,23 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException ex, Model model) {
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                LocalDateTime.now(),
+                400,
+                "Bad Request",
+                ex.getMessage()
+        );
+
+        log.error("RuntimeException: status={}, error={}, message={}, timestamp={}",
+                error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp());
+
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
+    }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();

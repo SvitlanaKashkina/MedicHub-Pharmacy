@@ -1,18 +1,11 @@
 package com.medichub.controller.auth;
 
 import com.medichub.dto.auth.SignUpRequestDTO;
-import com.medichub.dto.auth.UserDTO;
 import com.medichub.model.User;
-import com.medichub.security.CustomUserDetails;
-import com.medichub.security.CustomUserDetailsService;
 import com.medichub.service.auth.AuthService;
-import com.medichub.service.user.UserService;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,12 +68,18 @@ public class AuthController {
     @GetMapping("/account")
     public String showAccountPage(Model model, Principal principal) {
 
+        log.info("Called account page");
+
+        if (principal == null) {
+            // Redirect to login page if not authenticated
+            return "redirect:/auth/logIn";
+        }
+
         String email = principal.getName();
-
         User user = authService.findByEmail(email);
-
         model.addAttribute("user", user);
 
-        return "/user/account";
+        return "user/account";
     }
+
 }

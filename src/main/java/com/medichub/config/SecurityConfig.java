@@ -23,6 +23,7 @@ public class SecurityConfig {
                                         "/cart/**",
                                         "/products/product-details/**",
                                         "/auth/**",
+                                        "/user/**",
                                         "/css/**",
                                         "/images/**").permitAll()
                         .anyRequest().authenticated()
@@ -30,7 +31,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/auth/account", true)
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )

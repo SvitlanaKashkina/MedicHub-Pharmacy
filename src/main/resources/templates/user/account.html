@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>MedicHub Pharmacy</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+    <link rel="stylesheet" type="text/css" href="/css/user/account.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
+    <div class="header-left">
+        <a href="/" class="login-link">Back</a>
+    </div>
     <h1 class="logo">MedicHub Pharmacy</h1>
     <div class="header-right">
-        <a href="/login" class="login-link">Login</a>
         <a href="/cart">
-            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
+            <img src="/images/cart.jpg" alt="Cart" class="cart-icon">
         </a>
     </div>
 </header>
@@ -21,45 +23,59 @@
 <!-- Body -->
 <main class="main">
     <div class="side-image left">
-        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+        <img src="/images/buildKraut.jpg" alt="Links Bild">
     </div>
 
     <div class="container">
-        <h2>Hi, </h2>
-        <div class="">
-        <p><span class="icon">👤</span><strong>Vorname:</strong> <span th:text="${user.firstname}">Max</span></p>
-        <p><span class="icon">👤</span><strong>Nachname:</strong> <span th:text="${user.lastname}">Mustermann</span></p>
-        <p><span class="icon">📧</span><strong>Email:</strong> <span th:text="${user.email}">max@example.com</span></p>
-        <p><span class="icon">💼</span><strong>Position:</strong> <span th:text="${user.position}">Entwickler</span></p>
-        <p><span class="icon">📅</span><strong>Registriert am:</strong> <span th:text="${user.createdAt}">2025-10-20</span></p>
-        </div>
-        <div class="update">
-            <p>Change your data</p>
-            <button type="button">Email</button>
-            <button type="button">Password</button>
-        </div>
-        <!-- Logout -->
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">Abmelden</button>
-        </form>
+            <h2>Welcome, <span th:text="${user.firstname}">Name</span></h2>
+            <div>
+            <p><span class="icon">👤</span><strong>Vorname:</strong> <span th:text="${user.firstname}">Max</span></p>
+            <p><span class="icon">👤</span><strong>Nachname:</strong> <span th:text="${user.lastname}">Mustermann</span></p>
+            <p><span class="icon">📧</span><strong>Email:</strong> <span th:text="${user.email}">max@example.com</span></p>
+            </div>
+           <!-- Update user's data-->
+            <div class="update-data">
+                <p>Change your data</p>
+                <!-- Update Email -->
+                <form th:action="@{/user/update-email}" method="post">
+                    <div th:if="${param.success == 'email'}" style="color:green;">E-Mail updated successfully!</div>
+                    <div th:if="${param.emailError}" style="color:red; margin-bottom:10px;">Error updating email — please try again</div>
 
-        <div class="update">
-            <p>Delete your Account</p>
-            <button type="button">Email</button>
-            <button type="button">Password</button>
-        </div>
+                    <div class="form-group">
+                        <label for="newEmail">E-Mail</label>
+                        <input type="email" id="newEmail" name="newEmail" placeholder="Enter new email" required>
+                        <div>
+                        <button type="submit">Update email</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Update Password -->
+                <form th:action="@{/user/update-password}" method="post">
+                    <div th:if="${param.success == 'password'}" style="color:green;">Password updated successfully!</div>
+                    <div th:if="${param.passwordError}" style="color:red; margin-bottom:10px;">Error updating password — please try again</div>
+
+                    <div class="form-group">
+                        <label for="newPassword">Password</label>
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required>
+                        <div>
+                        <button type="submit">Update password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Logout -->
+            <form th:action="@{/auth/logout}" method="post">
+                <button type="submit">Logout</button>
+            </form>
+            <!-- Delete -->
+            <form th:action="@{/user/delete}" method="post">
+                <button type="submit">Delete your Account</button>
+            </form>
     </div>
 
-
-
-
-
-
-
-
-
     <div class="side-image right">
-        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+        <img src="/images/healyLife.png" alt="Rechts Bild">
     </div>
 
 </main>
