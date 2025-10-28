@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -28,18 +29,26 @@ public class UserService {
     }
 
     public boolean existsByEmail(String email) {
+        log.info("Checking if user with email {} exists", email);
         return userRepository.existsByEmail(email);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
     public User findByEmail(String email) {
+        log.info("Finding user with email {}", email);
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User saveUser(User user) {
+        log.info("Saving user with email {}", user.getEmail());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 
     @Transactional
     public void updateEmail(String currentEmail, String newEmail) {
@@ -78,12 +87,32 @@ public class UserService {
         log.info("Password updated for user {}", email);
     }
 
-
+    // Update role of an existing user
+    public void updateUserRole(Long id, String role) {
+        log.info("Updating role of user with id {} to {}", id, role);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        if(role != null && !role.isEmpty()) {
+            user.setRole(role);
+        }
+        userRepository.save(user);
+    }
+    // Delete user by email
     @Transactional
     public void deleteUserByEmail(String email) {
+        log.info("Deleting user with email {}", email);
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.delete(user);
+    }
+    // Delete user by id (admin)
+    public void deleteUser(Long id) {
+        log.info("Deleting user with id {}", id);
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
     }
 
 

@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>MedicHub Pharmacy</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/dashboard.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
-    <h1 class="logo">MedicHub Pharmacy</h1>
-    <div class="header-right">
-        <a href="/login" class="login-link">Login</a>
-        <a href="/cart">
-            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
-        </a>
+    <div class="header-left">
+        <a href="/" class="login-link">Back</a>
     </div>
+    <h1 class="logo">MedicHub Pharmacy</h1>
 </header>
 
 <!-- Body -->
 <main class="main">
     <div class="side-image left">
-        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+        <img src="/images/buildKraut.jpg" alt="Links Bild">
     </div>
 
+    <div class="dashboard-container">
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
 
+        <div class="main-container">
+            <div class="sidebar">
+                <a th:href="@{/admin/manage-users}">👥 Manage Users</a>
+                <a th:href="@{/admin/manage-products}">💊 Manage Products</a>
+                <a th:href="@{/admin/manage-orders}">📦 Manage Orders</a>
+                <a th:href="@{/admin/manage-feedback}">📝 Manage Feedback</a>
+                <a th:href="@{/auth/logout}" style="color: red;">🚪 Logout</a>
+            </div>
 
-
-
-
-
-
-
-
+            <div class="content">
+                    <h3>System Overview</h3>
+                    <p>Total Users: <span th:text="${totalUsers}">0</span></p>
+                    <p>Total Products: <span th:text="${totalProducts}">0</span></p>
+                    <p>Total paid orders: <span th:text="${paidOrders}">0</span></p>
+            </div>
+        </div>
+    </div>
 
     <div class="side-image right">
-        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+        <img src="/images/healyLife.png" alt="Rechts Bild">
     </div>
 
 </main>

@@ -30,6 +30,7 @@ public class Product {
 
     @Column(nullable = false)
     private String category;
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

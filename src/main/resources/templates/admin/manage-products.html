@@ -3,41 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>MedicHub Pharmacy</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/manage-products.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
-    <h1 class="logo">MedicHub Pharmacy</h1>
-    <div class="header-right">
-        <a href="/login" class="login-link">Login</a>
-        <a href="/cart">
-            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
-        </a>
+    <div class="header-left">
+        <a href="/admin/dashboard" class="login-link">Back</a>
     </div>
+    <h1 class="logo">MedicHub Pharmacy</h1>
 </header>
 
 <!-- Body -->
 <main class="main">
-    <div class="side-image left">
-        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+    <div class="page-title">
+        <h1>Manage Products</h1>
     </div>
 
+    <div class="container-wrapper">
 
+        <!-- 1. Add Product -->
+        <div class="container">
+            <h2>Add Product</h2>
+            <form th:action="@{/admin/manage-products/add}" method="post">
+                <input type="text" name="name" placeholder="Product Name" required>
+                <textarea name="description" placeholder="Description"></textarea>
+                <input type="number" step="0.01" name="price" placeholder="Price (€)" required>
+                <input type="number" name="stock" placeholder="Stock" required>
+                <input type="text" name="category" placeholder="Category" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
 
+        <!-- 2. Search Product -->
+        <div class="container">
+            <h2>Search Product</h2>
+            <form th:action="@{/admin/manage-products}" method="get">
+                <input type="text" name="search" placeholder="Search by name or category"
+                       th:value="${search}">
+                <button type="submit">Search</button>
+            </form>
 
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price (€)</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.name}">Name</td>
+                    <td th:text="${product.description}">Description</td>
+                    <td th:text="${product.price}">Price</td>
+                    <td th:text="${product.stock}">Stock</td>
+                    <td th:text="${product.category}">Category</td>
+                    <td th:text="${#temporals.format(product.createdAt, 'yyyy-MM-dd HH:mm')}">Created</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 3. Update Product -->
+        <div class="container">
+            <h2>Update Product</h2>
+            <form th:action="@{/admin/manage-products/update}" method="post">
+                <input type="hidden" name="id" th:value="${selectedProduct.productId}" />
+                <input type="text" name="name" th:value="${selectedProduct.name}" placeholder="Name"/>
+                <textarea name="description" th:text="${selectedProduct.description}" placeholder="Description"></textarea>
+                <input type="text" name="category" th:value="${selectedProduct.category}" placeholder="Category"/>
+                <input type="number" step="0.01" name="price" th:value="${selectedProduct.price}" placeholder="Price"/>
+                <input type="number" name="stock" th:value="${selectedProduct.stock}" placeholder="Stock"/>
+                <button type="submit">Update Product</button>
+            </form>
+        </div>
 
-
-
-
-
-
-
-    <div class="side-image right">
-        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+        <!-- 4. Delete Product -->
+        <div class="container">
+            <h2>Delete Product</h2>
+            <form th:action="@{/admin/manage-products/delete}" method="post">
+                <select name="id" required>
+                    <option th:each="product : ${products}" th:value="${product.productId}"
+                            th:text="${product.name} + ' (' + ${product.category} + ')'">
+                    </option>
+                </select>
+                <button type="submit" class="btn-delete">Delete Product</button>
+            </form>
+        </div>
     </div>
-
 </main>
 
 <!-- Footer -->

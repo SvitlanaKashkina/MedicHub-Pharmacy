@@ -1,43 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>MedicHub Pharmacy</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/auth/logIn.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/manage-users.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
-    <h1 class="logo">MedicHub Pharmacy</h1>
-    <div class="header-right">
-        <a href="/login" class="login-link">Login</a>
-        <a href="/cart">
-            <img src="/static/images/cart.jpg" alt="Cart" class="cart-icon">
-        </a>
+    <div class="header-left">
+        <a href="/admin/dashboard" class="login-link">Back</a>
     </div>
+    <h1 class="logo">MedicHub Pharmacy</h1>
 </header>
 
 <!-- Body -->
 <main class="main">
-    <div class="side-image left">
-        <img src="/static/images/buildKraut.jpg" alt="Links Bild">
+
+    <div class="page-title">
+        <h1>Manage Users</h1>
     </div>
+    <!--  Add User -->
+    <div class="container-wrapper">
+        <div class="container">
+            <h2>Add User</h2>
 
+            <form th:action="@{/admin/manage-users/add}" method="post" th:object="${newUser}">
+                <input type="text" th:field="*{firstname}" placeholder="Firstname" required />
+                <input type="text" th:field="*{lastname}" placeholder="Lastname" required />
+                <input type="email" th:field="*{email}" placeholder="Email" required />
+                <input type="text" th:field="*{password}" placeholder="Password" />
+                <select th:field="*{role}">
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+                <button type="submit">Add User</button>
+            </form>
+        </div>
 
+        <!--  Search User -->
+        <div class="container">
+            <h2>Search User</h2>
+            <form th:action="@{/admin/manage-users}" method="get">
+                <input type="text" name="email" th:value="${searchEmail}" placeholder="Search by email" />
+                <button type="submit">Search</button>
+            </form>
+            <!-- Results list -->
+            <table>
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.firstname}">Firstname</td>
+                    <td th:text="${user.lastname}">Lastname</td>
+                    <td th:text="${user.email}">Email</td>
+                    <td th:text="${user.password}">Password</td>
+                    <td th:text="${user.role}">Role</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
+        <!--  Search user and change Role -->
+        <div class="container">
+            <h2> Change user's role</h2>
+            <form th:action="@{/admin/manage-users/change}" method="post">
+                <select name="id" required>
+                    <option th:each="user : ${users}" th:value="${user.userId}"
+                            th:text="${user.firstname} + ' ' + ${user.lastname} + ' (' + ${user.email} + ')'">User</option>
+                </select>
+                <select name="role">
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+                <button type="submit">Update User</button>
+            </form>
+        </div>
 
-
-
-
-
-
-
-
-    <div class="side-image right">
-        <img src="/static/images/healyLife.png" alt="Rechts Bild">
+        <!--  Delete User -->
+        <div class="container">
+            <h2>Delete User</h2>
+            <form th:action="@{/admin/manage-users/delete}" method="post">
+                <select name="id" required>
+                    <option th:each="user : ${users}" th:value="${user.userId}"
+                            th:text="${user.firstname} + ' ' + ${user.lastname} + ' (' + ${user.email} + ')'">User</option>
+                </select>
+                <button type="submit" class="btn-delete">Delete User</button>
+            </form>
+        </div>
     </div>
-
 </main>
 
 <!-- Footer -->

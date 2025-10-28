@@ -43,7 +43,7 @@ public class AuthService {
         user.setLastname(request.getLastname());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole("USER");
+        user.setRole("ROLE_USER");
         user.setCreatedAt(LocalDateTime.now());
 
         User savedUser = userService.saveUser(user);

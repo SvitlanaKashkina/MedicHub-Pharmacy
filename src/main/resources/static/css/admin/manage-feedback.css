@@ -32,24 +32,17 @@ body {
     margin-left: 5px;
 }
 
-.header-right {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-right: 5px;
-}
-
 .login-link {
-    color: white;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
     text-decoration: none;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
     width: 60px;
     font-size: 20px;
-}
-
-.cart-icon {
-    width: 60px;
-    height: 40px;
 }
 
 /* Hauptbereich */
