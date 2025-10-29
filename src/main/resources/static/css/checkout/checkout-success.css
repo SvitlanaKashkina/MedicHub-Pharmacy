@@ -1,0 +1,178 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: red;
+    overflow-x: hidden;
+}
+
+/* Header */
+.header {
+    background-color: #2e7d32; /* Grün */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.header-left {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.header-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.login-link {
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 60px;
+    font-size: 20px;
+}
+
+.cart-icon {
+    width: 60px;
+    height: 40px;
+}
+
+/* Hauptbereich */
+.main {
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    background: linear-gradient(to right, #f6eccb, #ead770);
+    min-height: calc(100vh - 188px);
+    overflow: visible;
+}
+
+.side-image {
+    flex: 0 0 350px;
+}
+.side-image.right {
+    position: fixed;
+    right: 30px;
+    top: 650px;
+    width: 350px;
+}
+.side-image.left {
+    position: fixed;
+    left: 30px;
+    top: 110px;
+    width: 350px;
+}
+
+.side-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #615b5b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.checkout-success {
+    max-width: 760px;
+    margin: 48px auto;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    background: #ffffff;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #222;
+}
+
+/* Titel */
+.checkout-success h2 {
+    margin: 0 0 12px 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0b5ed7;
+}
+
+.checkout-success p {
+    margin: 10px 0;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+.checkout-success p span {
+    display: inline-block;
+    min-width: 90px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #f6f8ff;
+    font-weight: 600;
+    color: #0b3b91;
+}
+
+/* Link / Button-Stil */
+.checkout-success a {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    background: #0b5ed7;
+    color: #fff;
+    transition: transform .08s ease, box-shadow .08s ease;
+    box-shadow: 0 4px 10px rgba(11,94,215,0.15);
+}
+
+.checkout-success a:hover,
+.checkout-success a:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(11,94,215,0.18);
+    outline: none;
+}
+
+@media (max-width: 520px) {
+    .checkout-success {
+        margin: 20px;
+        padding: 18px;
+    }
+    .checkout-success h2 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Footer */
+.footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #2e7d32;
+    color: white;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}

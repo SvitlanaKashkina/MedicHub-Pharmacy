@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MedicHub Pharmacy - Cart</title>
+    <link rel="stylesheet" href="/css/cart/cart.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <a href="/" class="login-link">Back</a>
+    </div>
+    <h1 class="logo">MedicHub Pharmacy</h1>
+    <div class="header-right">
+        <a href="/auth/login" class="login-link">Login</a>
+        <a href="/cart">
+            <img src="/images/cart.jpg" alt="Cart" class="cart-icon">
+        </a>
+    </div>
+</header>
+
+<!-- Body -->
+<main class="main">
+    <div class="side-image left">
+        <img th:src="@{/images/buildKraut.jpg}" alt="Links Bild">
+    </div>
+
+    <h2>Bestellung erfolgreich!</h2>
+    <p>Ihre Bestellnummer: <span th:text="${order.id}"></span></p>
+    <p>Status: <span th:text="${order.status}"></span></p>
+    <a th:href="@{/products}">Zurück zu Produkten</a>
+    
+    <div class="side-image right">
+        <img th:src="@{/images/healyLife.png}" alt="Rechts Bild">
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div></div>
+    <div><p><a th:href="@{/terms}">Terms & Conditions</a></p></div>
+    <div><p><a th:href="@{/imprint}">Imprint</a></p></div>
+    <div><p><a th:href="@{/privacy}">Privacy Policy</a></p></div>
+    <div><p><a th:href="@{/contact}">Contact</a></p></div>
+    <div><p>© 2025 MedicHub</p></div>
+    <div></div>
+</footer>
+
+</body>
+</html>

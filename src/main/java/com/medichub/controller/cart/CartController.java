@@ -1,7 +1,12 @@
 package com.medichub.controller.cart;
 
 import com.medichub.model.CartItem;
+import com.medichub.model.Order;
+import com.medichub.model.User;
 import com.medichub.service.cart.CartService;
+import com.medichub.service.order.OrderService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +18,13 @@ import java.util.List;
 
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/cart")
 public class CartController {
 
     private final CartService cartService;
-
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
+    @Autowired
+    private OrderService orderService;
 
     private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
@@ -69,4 +73,5 @@ public class CartController {
         log.info("art item with ID {} successfully deleted", id);
         return "redirect:/cart";
     }
+
 }

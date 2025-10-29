@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MedicHub Pharmacy - Cart</title>
+    <link rel="stylesheet" href="/css/checkout/checkout.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <a href="/cart" class="login-link">Back</a>
+    </div>
+    <h1 class="logo">MedicHub Pharmacy</h1>
+</header>
+
+<!-- Body -->
+<main class="main">
+    <div class="side-image left">
+        <img th:src="@{/images/buildKraut.jpg}" alt="Left Bild">
+    </div>
+
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+        <p th:text="${instruction}"></p>
+
+        <form th:action="@{/cart/checkout/confirm}" method="post">
+            <h3>Lieferadresse</h3>
+            <input type="text" name="street" placeholder="Straße" required/>
+            <input type="text" name="city" placeholder="Stadt" required/>
+            <input type="text" name="zip" placeholder="PLZ" required/>
+            <input type="text" name="country" placeholder="Land" required/>
+
+            <h3>Zahlungsinformationen</h3>
+            <input type="text" name="cardNumber" placeholder="Kartennummer" required/>
+            <input type="text" name="expiryDate" placeholder="MM/YY" required/>
+            <input type="text" name="cvv" placeholder="CVV" required/>
+
+            <button type="submit">Bestellung abschließen</button>
+        </form>
+    </div>
+
+    <div class="side-image right">
+        <img th:src="@{/images/healyLife.png}" alt="Right image">
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div></div>
+    <div><p><a th:href="@{/terms}">Terms & Conditions</a></p></div>
+    <div><p><a th:href="@{/imprint}">Imprint</a></p></div>
+    <div><p><a th:href="@{/privacy}">Privacy Policy</a></p></div>
+    <div><p><a th:href="@{/contact}">Contact</a></p></div>
+    <div><p>© 2025 MedicHub</p></div>
+    <div></div>
+</footer>
+
+</body>
+</html>
