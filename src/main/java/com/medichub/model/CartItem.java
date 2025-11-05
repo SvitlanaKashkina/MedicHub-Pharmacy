@@ -9,7 +9,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"cart", "product"})
+@EqualsAndHashCode(exclude = {"cart", "product"})
 public class CartItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;

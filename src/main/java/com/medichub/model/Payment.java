@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "payment")
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,21 +15,15 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    @Column(nullable = false)
+    private String cardNumber;
+    private String expiryDate;
+    private String cvv;
     private Double amount;
-    @Column(nullable = false)
-    private String method; //  CREDIT_CARD, PAYPAL
-    @Column(nullable = false)
-    private String status; // PENDING, SUCCESS, FAILED
-    private LocalDateTime createdAt;
+    private LocalDateTime paymentDate;
+    private String status;
 
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
 }
 

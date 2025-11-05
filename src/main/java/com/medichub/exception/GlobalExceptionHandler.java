@@ -124,6 +124,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException ex, Model model) {
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                LocalDateTime.now(),
+                500,
+                "Internal Server Error",
+                ex.getMessage()
+        );
+        log.error("RuntimeException: status={}, error={}, message={}, timestamp={}",error.getStatus(), error.getError(), error.getMessage(), error.getTimestamp(), ex);
+        model.addAttribute("error", "Error with the order: " + ex.getMessage());
+        return "checkout/checkout";
+    }
 
     @ExceptionHandler(Exception.class)
     public String handleAllException(Exception ex, Model model) {
