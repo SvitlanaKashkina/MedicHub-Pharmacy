@@ -1,5 +1,6 @@
 package com.medichub.config;
 
+import com.medichub.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,10 +35,18 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login?logout=true")
-                        .permitAll()
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                    if (authentication != null) {
+                                        User user = (User) authentication.getPrincipal();
+                                        cartService.clearCart(user); // 🧹 Cart leeren
+                                    }
+                                    request.getSession().invalidate();
+                                    response.sendRedirect("/auth/login?logout=true");
+                                })
+                                .permitAll()
                 );
         return http.build();
     }
