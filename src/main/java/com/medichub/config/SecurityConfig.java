@@ -1,5 +1,6 @@
 package com.medichub.config;
 
+import com.medichub.model.User;
 import com.medichub.security.CustomSuccessHandler;
 import com.medichub.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,13 +55,18 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login?logout=true")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                    if (authentication != null) {
+                                        User user = (User) authentication.getPrincipal();
+                                        cartService.clearCart(user); // 🧹 Cart leeren
+                                    }
+                                    request.getSession().invalidate();
+                                    response.sendRedirect("/auth/login?logout=true");
+                                })
+                                .permitAll()
                 );
         return http.build();
     }
