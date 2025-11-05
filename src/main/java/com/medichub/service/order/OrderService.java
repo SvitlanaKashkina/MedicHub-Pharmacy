@@ -1,55 +1,53 @@
 package com.medichub.service.order;
 
-import com.medichub.controller.cart.CartController;
 import com.medichub.model.*;
 import com.medichub.repository.*;
+import com.medichub.service.cart.CartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private final AddressRepository addressRepository;
-    @Autowired
-    private final PaymentRepository paymentRepository;
-    @Autowired
-    private final OrderItemRepository orderItemRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private final CartItemRepository cartItemRepository;
-
     private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+
+    private final CartRepository cartRepository;
+    private final OrderRepository orderRepository;
+    private final AddressRepository addressRepository;
+    private final PaymentRepository paymentRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final UserRepository userRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartService cartService;
 
     @Transactional
     public void processOrder(String username, String street, String city, String zip, String country,
                              String cardNumber, String expiryDate, String cvv) {
-        log.info("Processing order for user: {}", username);
 
-        // find user
+        log.info("OrderService: Processing order for user: {}", username);
+
+        // Find user
         User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
 
-        // cart download
+        // Find cart
         Cart cart = cartRepository.findByUser_UserId(user.getUserId())
-                .orElseThrow(() -> new RuntimeException("Cart not found for user"));
+                .orElseGet(() -> {
+                    log.warn("No cart found for user: {}. Creating a new one.", username);
+                    Cart newCart = new Cart();
+                    newCart.setUser(user);
+                    return cartRepository.save(newCart);
+                });
 
-        if(cart.getCartItems().isEmpty()) {
+        if (cart.getCartItems().isEmpty()) {
             throw new RuntimeException("Cart is empty");
         }
 
@@ -87,9 +85,7 @@ public class OrderService {
         orderRepository.save(order);
 
         // Create order items
-        List<CartItem> cartItems = cart.getCartItems();
-
-        for (CartItem cartItem : cartItems) {
+        for (CartItem cartItem : cart.getCartItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(cartItem.getProduct());
@@ -98,9 +94,11 @@ public class OrderService {
             orderItemRepository.save(orderItem);
         }
 
-       // Empty shopping cart
+        // Clear cart
         cartItemRepository.deleteAll(cart.getCartItems());
         cart.getCartItems().clear();
         cartRepository.save(cart);
+        cartService.clearCart(user);
+        log.info("Order successfully processed for user: {}", username);
     }
 }

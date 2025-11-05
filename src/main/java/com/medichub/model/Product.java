@@ -30,12 +30,15 @@ public class Product {
 
     @Column(nullable = false)
     private String category;
+
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @ToString.Exclude   // 🛠 verhindert Endlosschleife
     private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @ToString.Exclude   // 🛠 verhindert Endlosschleife
     private List<OrderItem> orderItems;
 }
 

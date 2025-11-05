@@ -1,5 +1,11 @@
 package com.medichub.config;
 
+import com.medichub.model.Cart;
+import com.medichub.model.User;
+import com.medichub.repository.CartItemRepository;
+import com.medichub.repository.CartRepository;
+import com.medichub.service.cart.CartService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartService cartService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -34,10 +45,18 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login?logout=true")
-                        .permitAll()
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                    if (authentication != null) {
+                                        User user = (User) authentication.getPrincipal();
+                                        cartService.clearCart(user); // 🧹 Cart leeren
+                                    }
+                                    request.getSession().invalidate();
+                                    response.sendRedirect("/auth/login?logout=true");
+                                })
+                                .permitAll()
                 );
         return http.build();
     }

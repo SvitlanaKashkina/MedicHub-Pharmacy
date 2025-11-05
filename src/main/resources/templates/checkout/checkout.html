@@ -25,7 +25,7 @@
         <h2>Checkout</h2>
         <p th:text="${instruction}"></p>
 
-        <form th:action="@{/cart/checkout/confirm}" method="post">
+        <form th:action="@{/cart/checkout/confirm}" method="post" th:object="${order}">
             <h3>Lieferadresse</h3>
             <input type="text" name="street" placeholder="Straße" required/>
             <input type="text" name="city" placeholder="Stadt" required/>

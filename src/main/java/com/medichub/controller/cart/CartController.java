@@ -3,6 +3,7 @@ package com.medichub.controller.cart;
 import com.medichub.model.CartItem;
 import com.medichub.model.Order;
 import com.medichub.model.User;
+import com.medichub.repository.UserRepository;
 import com.medichub.service.cart.CartService;
 import com.medichub.service.order.OrderService;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -23,8 +25,8 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
-    @Autowired
     private OrderService orderService;
+    private final UserRepository userRepository;
 
     private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
@@ -44,11 +46,13 @@ public class CartController {
 
     // Add product to the Cart by id
     @PostMapping("/add/{productId}")
-    public String addToCart(@PathVariable Long productId) {
-
+    public String addToCart(@PathVariable Long productId, Principal principal) {
         log.info("Called add to cart for product with ID: " + productId);
 
-        cartService.addProductToCart(productId);
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found: " + principal.getName()));
+
+        cartService.addProductToCart(user, productId);
         return "redirect:/cart";
     }
 
